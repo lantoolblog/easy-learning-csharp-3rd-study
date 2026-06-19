@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/chap13/">
+    <Project Path="chap13/BookManager.Tests/BookManager.Tests.csproj" />
+    <Project Path="chap13/BookManager/BookManager.csproj" />
+  </Folder>
   <Folder Name="/chap14/">
     <Project Path="chap14/ChatBot/ChatBot.csproj" />
   </Folder>
