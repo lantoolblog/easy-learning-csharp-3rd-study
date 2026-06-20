@@ -12,6 +12,7 @@ public partial class Form2 : Form
 
         // 데이터 그리드 설정
         dataGridView1.DataSource = DataManager.Books;
+        dataGridView1.MultiSelect = false;
         dataGridView1.CurrentCellChanged += DataGridView1_CurrentCellChanged;
 
         // 버튼 설정

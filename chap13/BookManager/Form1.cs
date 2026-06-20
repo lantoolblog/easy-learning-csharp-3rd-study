@@ -19,9 +19,11 @@ public partial class Form1 : Form
         // 데이터 그리드 설정
         dataGridView1.DataSource = DataManager.Books;
         dataGridView1.ReadOnly = true;
+        dataGridView1.MultiSelect = false;
 
         dataGridView2.DataSource = DataManager.Users;
         dataGridView2.ReadOnly = true;
+        dataGridView2.MultiSelect = false;
 
         dataGridView1.CurrentCellChanged += DataGridView1_CurrentCellChanged;
         dataGridView2.CurrentCellChanged += DataGridView2_CurrentCellChanged;
@@ -48,6 +50,7 @@ public partial class Form1 : Form
         var book = dataGridView1.CurrentRow?.DataBoundItem as Book;
         textBox1.Text = book?.Isbn ?? string.Empty;
         textBox2.Text = book?.Name ?? string.Empty;
+        textBox3.Text = book?.UserId == 0 ? string.Empty : book?.UserId.ToString();
     }
 
     // 사용자 현황 그리드 뷰
@@ -157,4 +160,3 @@ public partial class Form1 : Form
         dataGridView2.DataSource = DataManager.Users;
     }
 }
-
