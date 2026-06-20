@@ -18,7 +18,7 @@ public partial class Form3 : Form
         // 추가 버튼
         button1.Click += (sender, e) =>
         {
-            if (DataManager.Users.Exists((x) => x.Id == int.Parse(textBox1.Text)))
+            if (DataManager.Users.Exists(x => x.Id == int.Parse(textBox1.Text)))
             {
                 MessageBox.Show("사용자 ID가 겹칩니다");
             }
@@ -43,7 +43,7 @@ public partial class Form3 : Form
         {
             try
             {
-                var user = DataManager.Users.Single((x) => x.Id == int.Parse(textBox1.Text));
+                var user = DataManager.Users.Single(x => x.Id == int.Parse(textBox1.Text));
                 user.Name = textBox2.Text;
 
                 dataGridView1.DataSource = null;
@@ -61,7 +61,7 @@ public partial class Form3 : Form
         {
             try
             {
-                var user = DataManager.Users.Single((x) => x.Id == int.Parse(textBox1.Text));
+                var user = DataManager.Users.Single(x => x.Id == int.Parse(textBox1.Text));
                 DataManager.Users.Remove(user);
 
                 dataGridView1.DataSource = null;
@@ -87,7 +87,7 @@ public partial class Form3 : Form
         }
         catch (Exception)
         {
-
+            // ignored
         }
     }
 }

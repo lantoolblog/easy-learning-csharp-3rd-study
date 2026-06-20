@@ -18,7 +18,7 @@ public partial class Form2 : Form
         // 추가 버튼
         button1.Click += (sender, e) =>
         {
-            if (DataManager.Books.Exists((x) => x.Isbn == textBox1.Text))
+            if (DataManager.Books.Exists(x => x.Isbn == textBox1.Text))
             {
                 MessageBox.Show("이미 존재하는 도서입니다.");
             }
@@ -44,7 +44,7 @@ public partial class Form2 : Form
             {
                 try
                 {
-                    var book = DataManager.Books.Single((x) => x.Isbn == textBox1.Text);
+                    var book = DataManager.Books.Single(x => x.Isbn == textBox1.Text);
                     book.Name = textBox2.Text;
                     book.Publisher = textBox3.Text;
                     book.Page = int.Parse(textBox4.Text);
@@ -64,7 +64,7 @@ public partial class Form2 : Form
         {
             try
             {
-                var book = DataManager.Books.Single((x) => x.Isbn == textBox1.Text);
+                var book = DataManager.Books.Single(x => x.Isbn == textBox1.Text);
                 DataManager.Books.Remove(book);
 
                 dataGridView1.DataSource = null;

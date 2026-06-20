@@ -25,7 +25,7 @@ internal class DataManager
             var booksOutput = File.ReadAllText(@"./Books.xml");
             var booksXElement = XElement.Parse(booksOutput);
             Books = [.. (from item in booksXElement.Descendants("book")
-                     select new Book()
+                     select new Book
                      {
                          Isbn = item.Element("isbn")?.Value ?? string.Empty,
                          Name = item.Element("name")?.Value ?? string.Empty,

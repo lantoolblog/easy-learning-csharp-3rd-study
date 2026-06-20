@@ -18,7 +18,11 @@ public partial class Form1 : Form
 
         // 데이터 그리드 설정
         dataGridView1.DataSource = DataManager.Books;
+        dataGridView1.ReadOnly = true;
+
         dataGridView2.DataSource = DataManager.Users;
+        dataGridView2.ReadOnly = true;
+
         dataGridView1.CurrentCellChanged += DataGridView1_CurrentCellChanged;
         dataGridView2.CurrentCellChanged += DataGridView2_CurrentCellChanged;
 
@@ -54,7 +58,7 @@ public partial class Form1 : Form
         textBox3.Text = user?.Id.ToString() ?? string.Empty;
     }
 
-    // 대여 버튼 
+    // 대여 버튼
     private void Button1_Click(object? sender, EventArgs e)
     {
         if (textBox1.Text.Trim() == "")
@@ -69,7 +73,7 @@ public partial class Form1 : Form
         {
             try
             {
-                var book = DataManager.Books.Single((x) => x.Isbn == textBox1.Text);
+                var book = DataManager.Books.Single(x => x.Isbn == textBox1.Text);
                 if (book.IsBorrowed)
                 {
                     MessageBox.Show("이미 대여 중인 도서입니다.");
@@ -77,13 +81,13 @@ public partial class Form1 : Form
                 else
                 {
                     // Single 메서드는 조건에 맞는 대상 객체 하나를 추출하는 메서드
-                    var user = DataManager.Users.Single((x) => x.Id.ToString() == textBox3.Text);
+                    var user = DataManager.Users.Single(x => x.Id.ToString() == textBox3.Text);
                     book.UserId = user.Id;
                     book.UserName = user.Name;
                     book.IsBorrowed = true;
                     book.BorrowedAt = DateTime.Now;
 
-                    // 그리드를 새로고침하고 XML로 저장하는 코드 
+                    // 그리드를 새로고침하고 XML로 저장하는 코드
                     dataGridView1.DataSource = null;
                     dataGridView1.DataSource = DataManager.Books;
                     DataManager.Save();
@@ -107,7 +111,7 @@ public partial class Form1 : Form
         {
             try
             {
-                var book = DataManager.Books.Single((x) => x.Isbn == textBox1.Text);
+                var book = DataManager.Books.Single(x => x.Isbn == textBox1.Text);
                 if (book.IsBorrowed)
                 {
                     // 💡불필요한 코드 같다.
@@ -121,14 +125,9 @@ public partial class Form1 : Form
                     dataGridView1.DataSource = DataManager.Books;
                     DataManager.Save();
 
-                    if (book.BorrowedAt?.AddDays(7) > DateTime.Now)
-                    {
-                        MessageBox.Show($"{book.Name}이/가 연체 상태로 반납되었습니다.");
-                    }
-                    else
-                    {
-                        MessageBox.Show($"{book.Name}이/가 반납되었습니다.");
-                    }
+                    MessageBox.Show(book.BorrowedAt?.AddDays(7) > DateTime.Now
+                        ? $@"{book.Name}이/가 연체 상태로 반납되었습니다."
+                        : $@"{book.Name}이/가 반납되었습니다.");
                 }
                 else
                 {
