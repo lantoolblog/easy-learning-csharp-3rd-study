@@ -81,3 +81,49 @@
     * 10.0: https://github.com/dotnet/core/tree/main/release-notes/10.0
 * 자습서
     * https://learn.microsoft.com/ko-kr/dotnet/core/tutorials/
+
+
+
+
+
+## 디펜던시 관리자 (NuGet)
+
+NuGet은 .NET SDK에 포함되어있다.
+
+테스트 프로젝트를 만들 때도, MSBuild나 xUnit 프로젝트로 별도로 만들 때, 그냥 디펜던시가 추가되고, 특별한 라이브러리를 추가할 일도 없을 것 같아서, 따로 디펜던시 관리 관련해서는 따로 할 일이 없을 것 같다.
+
+### 라이브러리 업데이트
+
+**권장 방법**: `dotnet-outdated-tool` 사용 **(일괄 업데이트)**
+
+```sh
+# dotnet-outdated-tool 설치 (최초 1회)
+dotnet tool install --global dotnet-outdated-tool
+
+# (선택) 설치된 도구 자체 업데이트
+dotnet tool update --global dotnet-outdated-tool
+
+# 솔루션 전체의 패키지를 최신 버전으로 자동 업데이트
+dotnet outdated -u
+
+# 업데이트 후 검증
+dotnet test
+```
+
+
+
+**대안**: 기본 dotnet CLI 사용 **(개별확인 후 업데이트)**
+
+```sh
+# 업데이트 가능한 패키지 확인
+dotnet list package --outdated
+
+# 개별 패키지 업데이트 (현재 폴더의 프로젝트 1개 기준)
+dotnet add package <패키지명>
+
+# 여러 프로젝트가 있는 솔루션이라면 csproj를 명시하는 방식 권장
+dotnet add <경로/프로젝트.csproj> package <패키지명>
+```
+
+**GUI 방법**: Visual Studio나 Rider의 NuGet 패키지 관리 UI를 사용하면 업데이트 가능한 패키지를 한눈에 보고 선택적으로 업데이트할 수 있다.
+
